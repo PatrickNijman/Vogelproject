@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <link rel="stylesheet" type="text/css" href="{% static 'blog/main.css' %}">
+    
+	{% if title %}
+		<title> Bird view - {{ title }}</title>
+	{% else %}
+		<title> Bird view </title>
+	{% endif %}
+</head>
+<body>
+	{% block content%}{% endblock %}
+</body>
+</html>
