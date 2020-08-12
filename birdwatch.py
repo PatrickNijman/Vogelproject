@@ -55,9 +55,9 @@ class BirdDetector:
         self._look_for_birds(frame, obj)
         self._crossreference()
         self.trigger()
-        for location in self.objectscurrentframe:
-            cv2.rectangle(frame , ( int(location[0] - vert / 4), int(location[1] - vert / 4)), (int(location[0] + vert / 4),  int(location[1] + vert / 4)), (255, 255, 255))
-            cv2.putText(frame, location[2] +': {}'.format(location[3]), (int(location[0] - vert / 4), int(location[1] + vert / 4)), cv2.FONT_HERSHEY_SIMPLEX, 1, 0, 1)
+        # for location in self.objectscurrentframe:
+        #     cv2.rectangle(frame , ( int(location[0] - vert / 4), int(location[1] - vert / 4)), (int(location[0] + vert / 4),  int(location[1] + vert / 4)), (255, 255, 255))
+        #     cv2.putText(frame, location[2] +': {}'.format(location[3]), (int(location[0] - vert / 4), int(location[1] + vert / 4)), cv2.FONT_HERSHEY_SIMPLEX, 1, 0, 1)
         return frame
         
     def _look_for_birds(self, frame, locations):
@@ -65,7 +65,7 @@ class BirdDetector:
         self.objectscurrentframe = []
         if len(locations) == 1:
             crop = self._cropper(frame, locations[0][0], locations[0][1])
-            im = cv2.resize(crop, (96, 96))/255
+            im = cv2.resize(crop, (224, 224))/255
             im = im.reshape((1,) + im.shape)
             if self.model is not None:
                 pr = self.model.predict(im)
@@ -79,7 +79,7 @@ class BirdDetector:
         else:
             for location in locations:
                 crop = self._cropper(frame, location[0], location [1])
-                im = cv2.resize(crop, (96, 96))/255
+                im = cv2.resize(crop, (224, 224))/255
                 im = im.reshape((1,) + im.shape)
                 if self.model is not None:
                     pr = self.model.predict(im)
